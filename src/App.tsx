@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FileText, Database, Braces, ArrowRightLeft, Table, Calendar, Clock, Link, Code2, Hash, FileJson, Settings, List, FileCode, Menu, X, Search, Sun, Moon, ChevronLeft, ChevronRight, Languages, Home as HomeIcon, Type, Eye, GitCompare, FileEdit } from 'lucide-react';
+import { FileText, Database, Braces, ArrowRightLeft, Table, Calendar, Clock, Link, Code2, Hash, FileJson, Settings, List, FileCode, Menu, X, Search, Sun, Moon, ChevronLeft, ChevronRight, Languages, Home as HomeIcon, Type, Eye, GitCompare, FileEdit, GitCommit } from 'lucide-react';
 import { useLanguage } from './contexts/LanguageContext';
 import Home from './components/Home';
 import CsvToSql from './components/CsvToSql';
@@ -29,9 +29,10 @@ import DiffChecker from './components/DiffChecker';
 import TextToSqlCreate from './components/TextToSqlCreate';
 import MarkdownPreview from './components/MarkdownPreview';
 import MarkdownEditor from './components/MarkdownEditor';
+import CommitMessageGenerator from './components/CommitMessageGenerator';
 import Footer from './components/Footer';
 
-type ConverterType = 'home' | 'csv-to-sql' | 'sql-to-csv' | 'json-to-sql' | 'sql-to-json' | 'excel-to-csv' | 'csv-json' | 'sql-to-schema' | 'schema-to-sql' | 'date-converter' | 'timestamp-converter' | 'url-converter' | 'base64-converter' | 'slug-generator' | 'uuid-generator' | 'json-formatter' | 'sql-formatter' | 'sql-in-converter' | 'env-converter' | 'html-table-converter' | 'log-parser' | 'json-to-table' | 'convert-case' | 'character-detector' | 'diff-checker' | 'text-to-sql-create' | 'markdown-preview' | 'markdown-editor';
+type ConverterType = 'home' | 'csv-to-sql' | 'sql-to-csv' | 'json-to-sql' | 'sql-to-json' | 'excel-to-csv' | 'csv-json' | 'sql-to-schema' | 'schema-to-sql' | 'date-converter' | 'timestamp-converter' | 'url-converter' | 'base64-converter' | 'slug-generator' | 'uuid-generator' | 'json-formatter' | 'sql-formatter' | 'sql-in-converter' | 'env-converter' | 'html-table-converter' | 'log-parser' | 'json-to-table' | 'convert-case' | 'character-detector' | 'diff-checker' | 'text-to-sql-create' | 'markdown-preview' | 'markdown-editor' | 'commit-generator';
 
 function App() {
   const { language, setLanguage, darkMode, setDarkMode, t } = useLanguage();
@@ -243,6 +244,12 @@ function App() {
       title: language === 'en' ? 'Markdown Editor' : 'Editor Markdown',
       icon: FileEdit,
       description: language === 'en' ? 'WYSIWYG markdown editor with toolbar' : 'Editor markdown WYSIWYG dengan toolbar'
+    },
+    {
+      id: 'commit-generator' as ConverterType,
+      title: language === 'en' ? 'Commit Message Generator' : 'Generator Pesan Commit',
+      icon: GitCommit,
+      description: language === 'en' ? 'Generate professional commit messages' : 'Generate pesan commit profesional'
     }
   ];
 
@@ -308,6 +315,8 @@ function App() {
         return <MarkdownPreview />;
       case 'markdown-editor':
         return <MarkdownEditor />;
+      case 'commit-generator':
+        return <CommitMessageGenerator />;
       default:
         return null;
     }
@@ -336,7 +345,7 @@ function App() {
     },
     {
       name: language === 'en' ? 'Utilities' : 'Utilitas',
-      items: converters.filter(c => ['uuid-generator', 'json-formatter', 'env-converter', 'log-parser'].includes(c.id))
+      items: converters.filter(c => ['uuid-generator', 'json-formatter', 'env-converter', 'log-parser', 'commit-generator'].includes(c.id))
     }
   ];
 

@@ -197,6 +197,13 @@ export default function Home({ onSelectConverter }: HomeProps) {
       icon: FileEdit,
       description: language === 'en' ? 'WYSIWYG markdown editor with toolbar' : 'Editor markdown WYSIWYG dengan toolbar',
       color: 'from-indigo-500 to-purple-600'
+    },
+    {
+      id: 'commit-generator',
+      title: language === 'en' ? 'Commit Message Generator' : 'Generator Pesan Commit',
+      icon: GitCompare,
+      description: language === 'en' ? 'Generate professional commit messages' : 'Generate pesan commit profesional',
+      color: 'from-green-500 to-teal-600'
     }
   ];
 
