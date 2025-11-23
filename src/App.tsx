@@ -570,41 +570,43 @@ function App() {
 
         {/* Main Content */}
         <main className="flex-1 p-8">
-          {activeConverter !== 'home' ? (
-            <>
-              {/* Page Header */}
-              <div className="mb-8">
-                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
-                  <button
-                    onClick={() => handleRouteChange('home')}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    {language === 'en' ? 'Home' : 'Beranda'}
-                  </button>
-                  <span>/</span>
-                  <span className="text-slate-700 dark:text-slate-300">{activeConverterInfo?.title}</span>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <ActiveIcon className="w-7 h-7 text-white" />
+            {activeConverter !== 'home' ? (
+              <>
+                {/* Page Header */}
+                <div className="mb-8">
+                  <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
+                    <button
+                      onClick={() => handleRouteChange('home')}
+                      className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {language === 'en' ? 'Home' : 'Beranda'}
+                    </button>
+                    <span>/</span>
+                    <span className="text-slate-700 dark:text-slate-300">{activeConverterInfo?.title}</span>
                   </div>
-                  <div>
-                    <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">{activeConverterInfo?.title}</h2>
-                    <p className="text-slate-600 dark:text-slate-400">{activeConverterInfo?.description}</p>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <ActiveIcon className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">{activeConverterInfo?.title}</h2>
+                      <p className="text-slate-600 dark:text-slate-400">{activeConverterInfo?.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Converter Content */}
-              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                {/* Converter Content */}
+                <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                  {renderConverter()}
+                </div>
+              </>
+            ) : (
+              <div className="py-8">
                 {renderConverter()}
               </div>
-            </>
-          ) : (
-            <div className="py-8">
-              {renderConverter()}
-            </div>
-          )}
+            )}
+          </div>
+
         </main>
       </div>
 

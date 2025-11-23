@@ -6,4 +6,47 @@
   html {
     font-size: 75%;
   }
+
+  /* Custom Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+    border: 2px solid #f1f5f9;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-color: #1e293b;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+
+  /* Firefox scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+  }
+
+  .dark .scrollbar-thin {
+    scrollbar-color: #475569 #1e293b;
+  }
 }
