@@ -1,4 +1,4 @@
-import { FileText, Database, Braces, ArrowRightLeft, Table, Calendar, Clock, Link, Code2, Hash, FileJson, Settings, List, FileCode, Type, Eye, GitCompare } from 'lucide-react';
+import { FileText, Database, Braces, ArrowRightLeft, Table, Calendar, Clock, Link, Code2, Hash, FileJson, Settings, List, FileCode, Type, Eye, GitCompare, FileEdit } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface HomeProps {
@@ -183,6 +183,20 @@ export default function Home({ onSelectConverter }: HomeProps) {
       icon: Database,
       description: language === 'en' ? 'Convert text to SQL CREATE TABLE' : 'Konversi text ke SQL CREATE TABLE',
       color: 'from-slate-500 to-slate-600'
+    },
+    {
+      id: 'markdown-preview',
+      title: language === 'en' ? 'Markdown Preview' : 'Preview Markdown',
+      icon: Eye,
+      description: language === 'en' ? 'Preview markdown with live rendering' : 'Preview markdown dengan rendering langsung',
+      color: 'from-purple-500 to-indigo-500'
+    },
+    {
+      id: 'markdown-editor',
+      title: language === 'en' ? 'Markdown Editor' : 'Editor Markdown',
+      icon: FileEdit,
+      description: language === 'en' ? 'WYSIWYG markdown editor with toolbar' : 'Editor markdown WYSIWYG dengan toolbar',
+      color: 'from-indigo-500 to-purple-600'
     }
   ];
 

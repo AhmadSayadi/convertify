@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FileText, Database, Braces, ArrowRightLeft, Table, Calendar, Clock, Link, Code2, Hash, FileJson, Settings, List, FileCode, Menu, X, Search, Sun, Moon, ChevronLeft, ChevronRight, Languages, Home as HomeIcon, Type, Eye, GitCompare } from 'lucide-react';
+import { FileText, Database, Braces, ArrowRightLeft, Table, Calendar, Clock, Link, Code2, Hash, FileJson, Settings, List, FileCode, Menu, X, Search, Sun, Moon, ChevronLeft, ChevronRight, Languages, Home as HomeIcon, Type, Eye, GitCompare, FileEdit } from 'lucide-react';
 import { useLanguage } from './contexts/LanguageContext';
 import Home from './components/Home';
 import CsvToSql from './components/CsvToSql';
@@ -27,8 +27,11 @@ import ConvertCase from './components/ConvertCase';
 import CharacterDetector from './components/CharacterDetector';
 import DiffChecker from './components/DiffChecker';
 import TextToSqlCreate from './components/TextToSqlCreate';
+import MarkdownPreview from './components/MarkdownPreview';
+import MarkdownEditor from './components/MarkdownEditor';
+import Footer from './components/Footer';
 
-type ConverterType = 'home' | 'csv-to-sql' | 'sql-to-csv' | 'json-to-sql' | 'sql-to-json' | 'excel-to-csv' | 'csv-json' | 'sql-to-schema' | 'schema-to-sql' | 'date-converter' | 'timestamp-converter' | 'url-converter' | 'base64-converter' | 'slug-generator' | 'uuid-generator' | 'json-formatter' | 'sql-formatter' | 'sql-in-converter' | 'env-converter' | 'html-table-converter' | 'log-parser' | 'json-to-table' | 'convert-case' | 'character-detector' | 'diff-checker' | 'text-to-sql-create';
+type ConverterType = 'home' | 'csv-to-sql' | 'sql-to-csv' | 'json-to-sql' | 'sql-to-json' | 'excel-to-csv' | 'csv-json' | 'sql-to-schema' | 'schema-to-sql' | 'date-converter' | 'timestamp-converter' | 'url-converter' | 'base64-converter' | 'slug-generator' | 'uuid-generator' | 'json-formatter' | 'sql-formatter' | 'sql-in-converter' | 'env-converter' | 'html-table-converter' | 'log-parser' | 'json-to-table' | 'convert-case' | 'character-detector' | 'diff-checker' | 'text-to-sql-create' | 'markdown-preview' | 'markdown-editor';
 
 function App() {
   const { language, setLanguage, darkMode, setDarkMode, t } = useLanguage();
@@ -228,6 +231,18 @@ function App() {
       title: language === 'en' ? 'Text to SQL CREATE' : 'Text ke SQL CREATE',
       icon: Database,
       description: language === 'en' ? 'Convert text to SQL CREATE TABLE' : 'Konversi text ke SQL CREATE TABLE'
+    },
+    {
+      id: 'markdown-preview' as ConverterType,
+      title: language === 'en' ? 'Markdown Preview' : 'Preview Markdown',
+      icon: Eye,
+      description: language === 'en' ? 'Preview markdown with live rendering' : 'Preview markdown dengan rendering langsung'
+    },
+    {
+      id: 'markdown-editor' as ConverterType,
+      title: language === 'en' ? 'Markdown Editor' : 'Editor Markdown',
+      icon: FileEdit,
+      description: language === 'en' ? 'WYSIWYG markdown editor with toolbar' : 'Editor markdown WYSIWYG dengan toolbar'
     }
   ];
 
@@ -289,6 +304,10 @@ function App() {
         return <DiffChecker />;
       case 'text-to-sql-create':
         return <TextToSqlCreate />;
+      case 'markdown-preview':
+        return <MarkdownPreview />;
+      case 'markdown-editor':
+        return <MarkdownEditor />;
       default:
         return null;
     }
@@ -301,7 +320,7 @@ function App() {
     },
     {
       name: t('textTools'),
-      items: converters.filter(c => ['csv-json', 'sql-in-converter', 'html-table-converter', 'json-to-table', 'convert-case', 'character-detector', 'diff-checker'].includes(c.id))
+      items: converters.filter(c => ['csv-json', 'sql-in-converter', 'html-table-converter', 'json-to-table', 'convert-case', 'character-detector', 'diff-checker', 'markdown-preview', 'markdown-editor'].includes(c.id))
     },
     {
       name: t('sqlTools'),
@@ -322,7 +341,7 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
         <div className="flex items-center justify-between px-6 py-4">
@@ -588,6 +607,9 @@ function App() {
           )}
         </main>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

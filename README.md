@@ -190,8 +190,9 @@ Have an idea for a new conversion tool? Open an issue with the `enhancement` lab
 
 ## 📧 Contact
 
-- Website: [https://convertify.dev](https://convertify.dev)
-- GitHub: [@yourusername](https://github.com/yourusername)
+- Website: [https://convertify.ahmadsayadi.com](https://convertify.ahmadsayadi.com)
+- GitHub: [@AhmadSayadi](https://github.com/AhmadSayadi/convertify)
+- Email: [me@ahmadsayadi.com](mailto:me@ahmadsayadi.com)
 
 ## 🙏 Acknowledgments
 
