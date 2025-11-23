@@ -37,7 +37,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a 
-                  href="https://github.com/AhmadSayadi/convertify" 
+                  href="https://github.com/AhmadSayadi/convertify#readme" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
