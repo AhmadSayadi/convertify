@@ -1,0 +1,15 @@
+# robots.txt for Convertify - Developer Tools
+# https://convertify.ahmadsayadi.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://convertify.ahmadsayadi.com/sitemap.xml
+
+# Crawl-delay (optional, in seconds)
+Crawl-delay: 1
+
+# Disallow admin or private paths (if any)
+# Disallow: /admin/
+# Disallow: /private/

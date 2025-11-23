@@ -349,6 +349,8 @@ function App() {
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="lg:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+              aria-label={sidebarOpen ? (language === 'en' ? 'Close navigation menu' : 'Tutup menu navigasi') : (language === 'en' ? 'Open navigation menu' : 'Buka menu navigasi')}
+              aria-expanded={sidebarOpen}
             >
               {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -513,7 +515,7 @@ function App() {
             {categories.map((category, index) => (
               <div key={category.name} className={index > 0 ? 'mt-6' : ''}>
                 {!sidebarCollapsed && (
-                  <h3 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3 px-3">
+                  <h3 className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3 px-3">
                     {category.name}
                   </h3>
                 )}

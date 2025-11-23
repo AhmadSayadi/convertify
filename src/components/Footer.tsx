@@ -34,13 +34,14 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-slate-800 dark:text-white mb-3">
               {language === 'en' ? 'Resources' : 'Sumber Daya'}
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               <li>
                 <a 
                   href="https://github.com/AhmadSayadi/convertify#readme" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="inline-block py-2 px-1 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label={language === 'en' ? 'Read Convertify documentation' : 'Baca dokumentasi Convertify'}
                 >
                   {language === 'en' ? 'Documentation' : 'Dokumentasi'}
                 </a>
@@ -50,7 +51,8 @@ export default function Footer() {
                   href="https://github.com/AhmadSayadi/convertify/issues" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="inline-block py-2 px-1 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label={language === 'en' ? 'Report a bug on GitHub' : 'Laporkan bug di GitHub'}
                 >
                   {language === 'en' ? 'Report Bug' : 'Laporkan Bug'}
                 </a>
@@ -60,7 +62,8 @@ export default function Footer() {
                   href="https://github.com/AhmadSayadi/convertify/issues" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="inline-block py-2 px-1 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label={language === 'en' ? 'Request a new feature on GitHub' : 'Request fitur baru di GitHub'}
                 >
                   {language === 'en' ? 'Request Feature' : 'Request Fitur'}
                 </a>
@@ -73,21 +76,23 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-slate-800 dark:text-white mb-3">
               {language === 'en' ? 'Connect' : 'Kontak'}
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-1">
               <a 
                 href="https://github.com/AhmadSayadi/convertify" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center gap-3 p-2 -ml-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors"
+                aria-label="Visit Convertify GitHub repository"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-5 h-5 flex-shrink-0" />
                 <span>GitHub</span>
               </a>
               <a 
                 href="mailto:me@ahmadsayadi.com"
-                className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center gap-3 p-2 -ml-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors"
+                aria-label="Send email to me@ahmadsayadi.com"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-5 h-5 flex-shrink-0" />
                 <span>me@ahmadsayadi.com</span>
               </a>
             </div>
