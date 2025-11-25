@@ -15,6 +15,7 @@ export default function ExcelToCsv() {
   const [tableName, setTableName] = useState("my_table");
   const [delimiter, setDelimiter] = useState<',' | '|'>(',');
   const [allAsString, setAllAsString] = useState(false);
+  const [generateSchema, setGenerateSchema] = useState(false);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -102,6 +103,52 @@ export default function ExcelToCsv() {
     const headers = lines[0].split(delimiter).map(h => h.trim().replace(/[^a-zA-Z0-9_]/g, '_'));
     const dataLines = lines.slice(1);
 
+    let sql = '';
+
+    // Generate CREATE TABLE schema if checkbox is enabled
+    if (generateSchema) {
+      // Detect column types from data
+      const columnTypes = headers.map((header, colIndex) => {
+        let isAllNumbers = true;
+        let isAllIntegers = true;
+        let maxLength = 0;
+
+        dataLines.forEach(line => {
+          const values = line.split(delimiter);
+          const value = values[colIndex]?.trim() || '';
+          
+          if (value && value !== '') {
+            maxLength = Math.max(maxLength, value.length);
+            
+            if (isNaN(Number(value))) {
+              isAllNumbers = false;
+              isAllIntegers = false;
+            } else if (value.includes('.')) {
+              isAllIntegers = false;
+            }
+          }
+        });
+
+        // Determine SQL type
+        let sqlType = 'VARCHAR(255)';
+        if (allAsString) {
+          sqlType = `VARCHAR(${Math.max(255, maxLength + 50)})`;
+        } else if (isAllIntegers) {
+          sqlType = 'INTEGER';
+        } else if (isAllNumbers) {
+          sqlType = 'DECIMAL(18, 2)';
+        } else {
+          sqlType = `VARCHAR(${Math.max(255, maxLength + 50)})`;
+        }
+
+        return `  ${header} ${sqlType}`;
+      });
+
+      sql += `-- CREATE TABLE Schema for ${tableName}\n\n`;
+      sql += `CREATE TABLE ${tableName} (\n${columnTypes.join(',\n')}\n);\n\n`;
+    }
+
+    // Generate INSERT statements
     const valueRows = dataLines.map(line => {
       const values = line.split(delimiter).map(v => {
         const trimmed = v.trim();
@@ -117,7 +164,8 @@ export default function ExcelToCsv() {
       return `(${values.join(', ')})`;
     });
 
-    const sql = `-- SQL INSERT Statement for ${tableName}\n\nINSERT INTO ${tableName} (${headers.join(', ')}) VALUES\n${valueRows.join(',\n')};`;
+    sql += `-- SQL INSERT Statement for ${tableName}\n\n`;
+    sql += `INSERT INTO ${tableName} (${headers.join(', ')}) VALUES\n${valueRows.join(',\n')};`;
 
     setSqlOutput(sql);
   };
@@ -301,20 +349,36 @@ export default function ExcelToCsv() {
             </select>
           </div>
 
-          {/* Treat all as string option */}
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="allAsString"
-              checked={allAsString}
-              onChange={(e) => setAllAsString(e.target.checked)}
-              className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-            />
-            <label htmlFor="allAsString" className="text-sm text-slate-700 dark:text-slate-300">
-              {language === 'en' 
-                ? 'Treat all values as strings (add quotes to all values including numbers)'
-                : 'Perlakukan semua nilai sebagai string (tambahkan tanda kutip ke semua nilai termasuk angka)'}
-            </label>
+          {/* Options */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="allAsString"
+                checked={allAsString}
+                onChange={(e) => setAllAsString(e.target.checked)}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <label htmlFor="allAsString" className="text-sm text-slate-700 dark:text-slate-300">
+                {language === 'en' 
+                  ? 'Treat all values as strings (add quotes to all values including numbers)'
+                  : 'Perlakukan semua nilai sebagai string (tambahkan tanda kutip ke semua nilai termasuk angka)'}
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="generateSchema"
+                checked={generateSchema}
+                onChange={(e) => setGenerateSchema(e.target.checked)}
+                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <label htmlFor="generateSchema" className="text-sm text-slate-700 dark:text-slate-300">
+                {language === 'en' 
+                  ? 'Generate CREATE TABLE schema (auto-detect column types)'
+                  : 'Generate schema CREATE TABLE (deteksi otomatis tipe kolom)'}
+              </label>
+            </div>
           </div>
 
           {/* Conversion Options */}
