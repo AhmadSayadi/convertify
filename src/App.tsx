@@ -30,9 +30,11 @@ import TextToSqlCreate from './components/TextToSqlCreate';
 import MarkdownPreview from './components/MarkdownPreview';
 import MarkdownEditor from './components/MarkdownEditor';
 import CommitMessageGenerator from './components/CommitMessageGenerator';
+import SqlMultiInsertConverter from './components/SqlMultiInsertConverter';
+import SqlUpdateGenerator from './components/SqlUpdateGenerator';
 import Footer from './components/Footer';
 
-type ConverterType = 'home' | 'csv-to-sql' | 'sql-to-csv' | 'json-to-sql' | 'sql-to-json' | 'excel-to-csv' | 'csv-json' | 'sql-to-schema' | 'schema-to-sql' | 'date-converter' | 'timestamp-converter' | 'url-converter' | 'base64-converter' | 'slug-generator' | 'uuid-generator' | 'json-formatter' | 'sql-formatter' | 'sql-in-converter' | 'env-converter' | 'html-table-converter' | 'log-parser' | 'json-to-table' | 'convert-case' | 'character-detector' | 'diff-checker' | 'text-to-sql-create' | 'markdown-preview' | 'markdown-editor' | 'commit-generator';
+type ConverterType = 'home' | 'csv-to-sql' | 'sql-to-csv' | 'json-to-sql' | 'sql-to-json' | 'excel-to-csv' | 'csv-json' | 'sql-to-schema' | 'schema-to-sql' | 'date-converter' | 'timestamp-converter' | 'url-converter' | 'base64-converter' | 'slug-generator' | 'uuid-generator' | 'json-formatter' | 'sql-formatter' | 'sql-in-converter' | 'env-converter' | 'html-table-converter' | 'log-parser' | 'json-to-table' | 'convert-case' | 'character-detector' | 'diff-checker' | 'text-to-sql-create' | 'markdown-preview' | 'markdown-editor' | 'commit-generator' | 'sql-multi-insert' | 'sql-update-generator';
 
 function App() {
   const { language, setLanguage, darkMode, setDarkMode, t } = useLanguage();
@@ -250,6 +252,18 @@ function App() {
       title: language === 'en' ? 'Commit Message Generator' : 'Generator Pesan Commit',
       icon: GitCommit,
       description: language === 'en' ? 'Generate professional commit messages' : 'Generate pesan commit profesional'
+    },
+    {
+      id: 'sql-multi-insert' as ConverterType,
+      title: language === 'en' ? 'SQL Multi INSERT Converter' : 'Konverter SQL Multi INSERT',
+      icon: Database,
+      description: language === 'en' ? 'Convert between multiple and single INSERT statements' : 'Konversi antara multiple dan single INSERT statements'
+    },
+    {
+      id: 'sql-update-generator' as ConverterType,
+      title: language === 'en' ? 'SQL UPDATE Generator' : 'Generator SQL UPDATE',
+      icon: Database,
+      description: language === 'en' ? 'Generate UPDATE with JOIN statements' : 'Generate statement UPDATE dengan JOIN'
     }
   ];
 
@@ -317,6 +331,10 @@ function App() {
         return <MarkdownEditor />;
       case 'commit-generator':
         return <CommitMessageGenerator />;
+      case 'sql-multi-insert':
+        return <SqlMultiInsertConverter />;
+      case 'sql-update-generator':
+        return <SqlUpdateGenerator />;
       default:
         return null;
     }
@@ -333,7 +351,7 @@ function App() {
     },
     {
       name: t('sqlTools'),
-      items: converters.filter(c => ['sql-to-schema', 'schema-to-sql', 'sql-formatter', 'text-to-sql-create'].includes(c.id))
+      items: converters.filter(c => ['sql-to-schema', 'schema-to-sql', 'sql-formatter', 'text-to-sql-create', 'sql-multi-insert', 'sql-update-generator'].includes(c.id))
     },
     {
       name: language === 'en' ? 'Date & Time' : 'Tanggal & Waktu',

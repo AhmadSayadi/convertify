@@ -204,6 +204,20 @@ export default function Home({ onSelectConverter }: HomeProps) {
       icon: GitCompare,
       description: language === 'en' ? 'Generate professional commit messages' : 'Generate pesan commit profesional',
       color: 'from-green-500 to-teal-600'
+    },
+    {
+      id: 'sql-multi-insert',
+      title: language === 'en' ? 'SQL Multi INSERT Converter' : 'Konverter SQL Multi INSERT',
+      icon: Database,
+      description: language === 'en' ? 'Convert between multiple and single INSERT statements' : 'Konversi antara multiple dan single INSERT statements',
+      color: 'from-orange-500 to-red-600'
+    },
+    {
+      id: 'sql-update-generator',
+      title: language === 'en' ? 'SQL UPDATE Generator' : 'Generator SQL UPDATE',
+      icon: Database,
+      description: language === 'en' ? 'Generate UPDATE with JOIN statements' : 'Generate statement UPDATE dengan JOIN',
+      color: 'from-red-500 to-rose-600'
     }
   ];
 
