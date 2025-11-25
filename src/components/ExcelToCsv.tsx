@@ -14,6 +14,7 @@ export default function ExcelToCsv() {
   const [jsonOutput, setJsonOutput] = useState("");
   const [tableName, setTableName] = useState("my_table");
   const [delimiter, setDelimiter] = useState<',' | '|'>(',');
+  const [allAsString, setAllAsString] = useState(false);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -105,6 +106,11 @@ export default function ExcelToCsv() {
       const values = line.split(delimiter).map(v => {
         const trimmed = v.trim();
         if (!trimmed || trimmed === '') return 'NULL';
+        // If "all as string" is enabled, always quote the value
+        if (allAsString) {
+          return `'${trimmed.replace(/'/g, "''")}'`;
+        }
+        // Otherwise, check if it's a number
         if (!isNaN(Number(trimmed))) return trimmed;
         return `'${trimmed.replace(/'/g, "''")}'`;
       });
@@ -282,17 +288,33 @@ export default function ExcelToCsv() {
 
           {/* Delimiter Selection */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
               {language === 'en' ? 'CSV Delimiter' : 'Delimiter CSV'}
             </label>
             <select
               value={delimiter}
               onChange={(e) => setDelimiter(e.target.value as ',' | '|')}
-              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
             >
               <option value=",">Comma (,)</option>
               <option value="|">Pipe (|)</option>
             </select>
+          </div>
+
+          {/* Treat all as string option */}
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="allAsString"
+              checked={allAsString}
+              onChange={(e) => setAllAsString(e.target.checked)}
+              className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+            />
+            <label htmlFor="allAsString" className="text-sm text-slate-700 dark:text-slate-300">
+              {language === 'en' 
+                ? 'Treat all values as strings (add quotes to all values including numbers)'
+                : 'Perlakukan semua nilai sebagai string (tambahkan tanda kutip ke semua nilai termasuk angka)'}
+            </label>
           </div>
 
           {/* Conversion Options */}

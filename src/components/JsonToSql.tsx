@@ -7,6 +7,7 @@ export default function JsonToSql() {
   const [output, setOutput] = useState('');
   const [copied, setCopied] = useState(false);
   const [rowCount, setRowCount] = useState(0);
+  const [allAsString, setAllAsString] = useState(false);
 
   const convertJsonToSql = () => {
     if (!input.trim()) {
@@ -31,6 +32,14 @@ export default function JsonToSql() {
           if (val === null || val === undefined) {
             return 'NULL';
           }
+          // If "all as string" is enabled, always quote the value
+          if (allAsString) {
+            if (typeof val === 'object') {
+              return `'${JSON.stringify(val).replace(/'/g, "''")}'`;
+            }
+            return `'${String(val).replace(/'/g, "''")}'`;
+          }
+          // Otherwise, check type
           if (typeof val === 'number' || typeof val === 'boolean') {
             return String(val);
           }
@@ -78,16 +87,30 @@ export default function JsonToSql() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
           Table Name
         </label>
         <input
           type="text"
           value={tableName}
           onChange={(e) => setTableName(e.target.value)}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
           placeholder="Enter table name"
         />
+      </div>
+
+      {/* Treat all as string option */}
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="allAsString"
+          checked={allAsString}
+          onChange={(e) => setAllAsString(e.target.checked)}
+          className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+        />
+        <label htmlFor="allAsString" className="text-sm text-slate-700 dark:text-slate-300">
+          Treat all values as strings (add quotes to all values including numbers)
+        </label>
       </div>
 
       <div>
